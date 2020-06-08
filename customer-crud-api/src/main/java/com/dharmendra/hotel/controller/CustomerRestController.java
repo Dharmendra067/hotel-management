@@ -29,16 +29,16 @@ public class CustomerRestController {
 		customerService = thecustomerService;
 	}
 
-	// expose "/employees" and return list of employees
+	// expose "/Customers" and return list of Customers
 	@GetMapping("/customers")
 	public List<Customer> findAll() {
 		return customerService.findAll();
 	}
 
-	// add mapping for GET /employees/{employeeId}
+	// add mapping for GET /Customers/{customers}
 
 	@GetMapping("/customers/{customerId}")
-	public Customer getEmployee(@PathVariable long customerId) {
+	public Customer getCustomer(@PathVariable long customerId) {
 
 		Customer theCustomer = customerService.findById(customerId);
 
@@ -49,32 +49,32 @@ public class CustomerRestController {
 		return theCustomer;
 	}
 
-	// add mapping for POST /employees - add new employee
+	// add mapping for POST /Customer - add new Customers
 
 	@PostMapping("/customers")
-	public Customer addEmployee(@RequestBody Customer theEmployee) {
+	public Customer addCustomer(@RequestBody Customer theCustomer) {
 
 		// also just in case they pass an id in JSON ... set id to 0
 		// this is to force a save of new item ... instead of update
 
-		theEmployee.setId(0);
+		theCustomer.setId(0);
 
-		customerService.save(theEmployee);
+		customerService.save(theCustomer);
 
-		return theEmployee;
+		return theCustomer;
 	}
 
-	// add mapping for PUT /employees - update existing employee
+	// add mapping for PUT /Customers - update existing Customers
 
 	@PutMapping("/customers")
-	public Customer updateEmployee(@RequestBody Customer theEmployee) {
+	public Customer updateCustomer(@RequestBody Customer theCustomer) {
 
-		customerService.save(theEmployee);
+		customerService.save(theCustomer);
 
-		return theEmployee;
+		return theCustomer;
 	}
 
-	// add mapping for DELETE /employees/{employeeId} - delete employee
+	// add mapping for DELETE /customers/{customerId} - delete customer
 
 	@DeleteMapping("/customers/{customerId}")
 	public String deleteCustomer(@PathVariable long customerId) {
@@ -84,7 +84,7 @@ public class CustomerRestController {
 		// throw exception if null
 
 		if (tempCustomer == null) {
-			throw new RuntimeException("Employee id not found - " + customerId);
+			throw new RuntimeException("Customer id not found - " + customerId);
 		}
 
 		customerService.deleteById(customerId);
